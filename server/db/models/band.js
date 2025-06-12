@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // Your code here
+      Band.hasMany(
+        models.Musician,
+        { foreignKey: 'bandId', onDelete: 'CASCADE', hooks: true }
+      )
     }
   };
   Band.init({
@@ -18,10 +22,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true
-    }
+    },
+
   }, {
     sequelize,
     modelName: 'Band',
+    timestamps: true
   });
   return Band;
 };
